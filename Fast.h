@@ -1,4 +1,6 @@
-// Shifter.h
+/// 
+///  Created for personal use, use it at your own risk and benefit.
+/// 
 
 #ifndef _SHIFTER_h
 #define _SHIFTER_h
