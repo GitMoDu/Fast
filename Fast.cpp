@@ -4,7 +4,7 @@
 
 #include "Fast.h"
 
-bool FastShifter::Setup(u8 pin, bool startValue)
+bool FastShifter::Setup(uint8_t pin, bool startValue)
 {
 	Fast::Setup(pin, startValue);
 }
@@ -21,13 +21,12 @@ void FastShifter::PulseLow()
 	Set(HIGH);
 }
 
-bool Fast::Setup(u8 pin, bool startValue)
+bool Fast::Setup(uint8_t pin, bool startValue)
 {
 	PinAddress = digitalPinToBitMask(pin);
 	Mode = portModeRegister(digitalPinToPort(pin));
 	OutPin = portOutputRegister(digitalPinToPort(pin));
 
-	// set pin port as ouput
 	*Mode |= PinAddress;
 
 	Set(startValue);

@@ -10,12 +10,12 @@ class Fast
 {
 private:
 	bool LastValue = false;
-	volatile u8 *Mode;
-	volatile u8 *OutPin;
-	u8 PinAddress;
+	volatile uint8_t *Mode;
+	volatile uint8_t *OutPin;
+	uint8_t PinAddress;
 
 public:
-	bool virtual Setup(u8 pin, bool startValue);
+	bool virtual Setup(uint8_t pin, bool startValue = false);
 	void Set(bool value);
 	bool GetLast();
 	void Toggle();
@@ -28,7 +28,7 @@ class FastOut : public Fast
 class FastShifter : public Fast
 {
 public:
-	virtual bool Setup(u8 pin, bool startValue);
+	virtual bool Setup(uint8_t pin, bool startValue = false);
 	void PulseLow();
 	void PulseHigh();
 };
