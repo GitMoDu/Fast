@@ -1,6 +1,6 @@
-// 
-// 
-// 
+/// 
+///  Created for personal use, use it at your own risk and benefit.
+/// 
 
 #include "Fast.h"
 
