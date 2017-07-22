@@ -34,6 +34,11 @@ bool Fast::Setup(uint8_t pin, bool startValue)
 
 void Fast::Set(bool value)
 {
+	if (value == LastValue)
+	{
+		return;
+	}
+
 	LastValue = value;
 
 	if(LastValue)
