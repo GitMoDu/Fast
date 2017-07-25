@@ -1,5 +1,7 @@
+
 /// 
 ///  Created for personal use, use it at your own risk and benefit.
+///	 https://github.com/GitMoDu/FastSegment
 /// 
 
 #include "Fast.h"
