@@ -1,3 +1,5 @@
-# Fast
+# Fast (Arduino Compatible)
 
-Fast IO compatible with library making.
+Fast and simple IO for Arduino, easy to use for library making. Outputs only, for now.
+
+Tested in: ATmega328p, ATTiny85.
