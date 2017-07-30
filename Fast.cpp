@@ -23,6 +23,20 @@ void FastShifter::PulseLow()
 	Set(HIGH);
 }
 
+void FastShifter::PulseHigh(const int16_t pulseIntervalMicros)
+{
+	Set(HIGH);
+	delayMicroseconds(pulseIntervalMicros);
+	Set(LOW);
+}
+
+void FastShifter::PulseLow(const uint16_t pulseIntervalMicros)
+{
+	Set(LOW);
+	delayMicroseconds(pulseIntervalMicros);
+	Set(HIGH);
+}
+
 bool Fast::Setup(uint8_t pin, bool startValue)
 {
 	PinAddress = digitalPinToBitMask(pin);

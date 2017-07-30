@@ -35,6 +35,8 @@ public:
 	virtual bool Setup(uint8_t pin, bool startValue = false);
 	void PulseLow();
 	void PulseHigh();
+	void PulseLow(const uint16_t pulseIntervalMicros);
+	void PulseHigh(const int16_t pulseIntervalMicros);
 };
 
 
