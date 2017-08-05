@@ -1,5 +1,7 @@
 
 /// 
+///  Fast and simple IO library for Arduino compatible boards.
+///  Not the fastest, but simplest to use (for me at least).
 ///  Created for personal use, use it at your own risk and benefit.
 ///	 https://github.com/GitMoDu/Fast
 /// 
