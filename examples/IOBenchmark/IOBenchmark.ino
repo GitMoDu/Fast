@@ -12,14 +12,16 @@ by MoDu
 #include <Fast.h>
 #include <DirectIO.h>
 
+#define BENCHMARK_SIZE 100000
+#define BENCHMARK_STEP_DELAY 300
+#define BENCHMARK_PIN 9
+
 FastOut ledPin;
 FastOut *ledPinPointer;
 FastOutCached *ledPinCachedPointer;
-OutputPin DirectPin(LED_BUILTIN);
+OutputPin DirectPin(BENCHMARK_PIN);
 OutputPin *DirectPinPointer;
 
-#define BENCHMARK_SIZE 100000
-#define BENCHMARK_STEP_DELAY 300
 
 void setup() {
 	Serial.begin(115200);
@@ -36,22 +38,22 @@ void Benchmark()
 	uint32_t Start, Duration;
 	bool ManualToggle = false;
 
-	pinMode(LED_BUILTIN, OUTPUT);
+	pinMode(BENCHMARK_PIN, OUTPUT);
 	ManualToggle = LOW;
-	digitalWrite(LED_BUILTIN, ManualToggle);
+	digitalWrite(BENCHMARK_PIN, ManualToggle);
 	Start = millis();
 	for (uint32_t counter = 0; counter < BENCHMARK_SIZE; counter++)
 	{
-		digitalWrite(LED_BUILTIN, ManualToggle);
+		digitalWrite(BENCHMARK_PIN, ManualToggle);
 		ManualToggle = !ManualToggle;
 	}
 	Duration = millis() - Start;
 	ManualToggle = LOW;
-	digitalWrite(LED_BUILTIN, ManualToggle);
+	digitalWrite(BENCHMARK_PIN, ManualToggle);
 	PrintBenchmarkResults(Duration, "Digital Write Manual Toggle");
 
 
-	ledPin.Setup(LED_BUILTIN, ManualToggle);
+	ledPin.Setup(BENCHMARK_PIN, ManualToggle);
 
 	delay(BENCHMARK_STEP_DELAY);
 	Start = millis();
@@ -78,7 +80,7 @@ void Benchmark()
 	PrintBenchmarkResults(Duration, "Fast Auto Toggle");
 
 
-	ledPinPointer = new FastOut(LED_BUILTIN, ManualToggle);
+	ledPinPointer = new FastOut(BENCHMARK_PIN, ManualToggle);
 
 	delay(BENCHMARK_STEP_DELAY);
 	Start = millis();
@@ -103,7 +105,7 @@ void Benchmark()
 	ledPinPointer->Set(ManualToggle);
 	PrintBenchmarkResults(Duration, "Fast Pointer Auto Toggle");
 
-	ledPinCachedPointer = new FastOutCached(LED_BUILTIN, ManualToggle);
+	ledPinCachedPointer = new FastOutCached(BENCHMARK_PIN, ManualToggle);
 	delay(BENCHMARK_STEP_DELAY);
 	Start = millis();
 	for (uint32_t counter = 0; counter < BENCHMARK_SIZE; counter++)
@@ -116,7 +118,7 @@ void Benchmark()
 	ledPinCachedPointer->Set(ManualToggle);
 	PrintBenchmarkResults(Duration, "Fast Cached Pointer Manual Toggle");
 
-	//ledPinCachedPointer = new FastOutCached(LED_BUILTIN, ManualToggle);
+	//ledPinCachedPointer = new FastOutCached(BENCHMARK_PIN, ManualToggle);
 	delay(BENCHMARK_STEP_DELAY);
 	Start = millis();
 	for (uint32_t counter = 0; counter < BENCHMARK_SIZE; counter++)
@@ -153,7 +155,7 @@ void Benchmark()
 	DirectPin = ManualToggle;
 	PrintBenchmarkResults(Duration, "DirectIO Auto Toggle");
 
-	DirectPinPointer = new OutputPin(LED_BUILTIN);
+	DirectPinPointer = new OutputPin(BENCHMARK_PIN);
 	DirectPinPointer->write(ManualToggle);
 	delay(BENCHMARK_STEP_DELAY);
 	Start = millis();
@@ -168,7 +170,7 @@ void Benchmark()
 	DirectPinPointer->write(ManualToggle);
 	PrintBenchmarkResults(Duration, "DirectIO Pointer Manual Toggle");
 
-	DirectPinPointer = new OutputPin(LED_BUILTIN);
+	DirectPinPointer = new OutputPin(BENCHMARK_PIN);
 	DirectPinPointer->write(ManualToggle);
 	delay(BENCHMARK_STEP_DELAY);
 	Start = millis();
@@ -182,10 +184,10 @@ void Benchmark()
 	PrintBenchmarkResults(Duration, "DirectIO Pointer Auto Toggle");
 
 
-	digitalWrite(LED_BUILTIN, HIGH);
+	digitalWrite(BENCHMARK_PIN, HIGH);
 	Serial.println(F("Benchmark complete."));
 	delay(BENCHMARK_STEP_DELAY * 3);
-	digitalWrite(LED_BUILTIN, LOW);
+	digitalWrite(BENCHMARK_PIN, LOW);
 
 }
 
