@@ -6,8 +6,8 @@
 ///	 https://github.com/GitMoDu/Fast
 /// 
 
-#ifndef _SHIFTER_h
-#define _SHIFTER_h
+#ifndef _FAST_h
+#define _FAST_h
 
 
 #include <Arduino.h>
@@ -82,8 +82,6 @@ public:
 	void PulseLow(const uint16_t pulseIntervalMicros);
 	void PulseHigh(const int16_t pulseIntervalMicros);
 };
-
-
 
 #endif
 
