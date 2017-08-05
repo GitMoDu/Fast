@@ -198,9 +198,8 @@ void PrintBenchmarkResults(uint32_t duration, char* benchmarkType)
 	Serial.print(duration);
 	Serial.print(F(" ms - "));
 
-	uint32_t Frequency = (BENCHMARK_SIZE * 1000) / duration;
-	float FrequencyKHz = Frequency / 1000;
-	Serial.print(FrequencyKHz, 1);
+	double FrequencyKHz = ((double)BENCHMARK_SIZE) / ((double)duration);
+	Serial.print(FrequencyKHz,1);
 	Serial.println(F(" kHz"));
 }
 
