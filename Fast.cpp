@@ -6,9 +6,10 @@
 
 #include "Fast.h"
 
-bool FastShifter::Setup(uint8_t pin, bool startValue)
+bool FastShifter::Setup(const uint8_t pin, bool startValue)
 {
-	Fast::Setup(pin, startValue);
+	FastOut::Setup(pin, startValue);
+	Set(startValue);
 }
 
 void FastShifter::PulseHigh()
@@ -37,43 +38,92 @@ void FastShifter::PulseLow(const uint16_t pulseIntervalMicros)
 	Set(HIGH);
 }
 
-bool Fast::Setup(uint8_t pin, bool startValue)
+FastOut::FastOut(const uint8_t pin, bool startValue)
 {
-	PinAddress = digitalPinToBitMask(pin);
-	Mode = portModeRegister(digitalPinToPort(pin));
-	OutPin = portOutputRegister(digitalPinToPort(pin));
+	Setup(pin, startValue);
+}
 
-	*Mode |= PinAddress;
-
+bool FastOut::Setup(const uint8_t pin, bool startValue)
+{
+	Fast::Setup(pin);
 	Set(startValue);
 }
 
-void Fast::Set(bool value)
+void FastOut::Toggle()
 {
-	if (value == LastValue)
+	if (Get())
 	{
-		return;
+		*OutPin &= PinAddressMaskOff;
 	}
-
-	LastValue = value;
-
-	if(LastValue)
+	else
 	{
-		*OutPin |= PinAddress;
-	}
-	else 
-	{
-		*OutPin &= ~PinAddress;
+		*OutPin |= PinAddressMaskOn;
 	}
 }
 
-bool Fast::GetLast()
+void FastOut::Set(const bool value)
 {
-	return LastValue;
+	if (value)
+	{
+		*OutPin |= PinAddressMaskOn;
+	}
+	else
+	{
+		*OutPin &= PinAddressMaskOff;
+	}
 }
 
-void Fast::Toggle()
+FastOutCached::FastOutCached(const uint8_t pin, bool startValue)
 {
-	Set(!LastValue);
+	Setup(pin, startValue);
 }
 
+void FastOutCached::Toggle()
+{
+	if (LastValueCache)
+	{
+		Set(LOW);
+	}
+	else
+	{
+		Set(HIGH);
+	}
+}
+
+inline void FastOutCached::Set(const bool value)
+{
+	LastValueCache = value;
+	if (LastValueCache)
+	{
+		*OutPin |= PinAddressMaskOn;
+	}
+	else
+	{
+		*OutPin &= PinAddressMaskOff;
+	}
+}
+
+
+Fast::Fast(uint8_t pin)
+{
+	if (pin != INVALID_PIN)
+	{
+		Setup(pin);
+	}
+}
+
+bool Fast::Setup(const uint8_t pin)
+{
+	PinAddressMaskOn = digitalPinToBitMask(pin);
+	PinAddressMaskOff = ~PinAddressMaskOn;
+	Mode = portModeRegister(digitalPinToPort(pin));
+	OutPin = portOutputRegister(digitalPinToPort(pin));
+	InPin = portInputRegister(digitalPinToPort(pin));
+
+	*Mode |= PinAddressMaskOn;//TODO, ensure input compatibility
+}
+
+inline bool Fast::Get()
+{
+	return *InPin & PinAddressMaskOn;
+}
