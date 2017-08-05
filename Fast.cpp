@@ -9,7 +9,6 @@
 bool FastShifter::Setup(const uint8_t pin, bool startValue)
 {
 	FastOut::Setup(pin, startValue);
-	Set(startValue);
 }
 
 void FastShifter::PulseHigh()
@@ -47,6 +46,11 @@ bool FastOut::Setup(const uint8_t pin, bool startValue)
 {
 	Fast::Setup(pin);
 	Set(startValue);
+}
+
+bool FastOutCached::Setup(const uint8_t pin, bool startValue)
+{
+	FastOut::Setup(pin, startValue);
 }
 
 void FastOut::Toggle()
