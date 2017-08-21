@@ -8,7 +8,7 @@
 
 bool FastShifter::Setup(const uint8_t pin, bool startValue)
 {
-	FastOut::Setup(pin, startValue);
+	return FastOut::Setup(pin, startValue);
 }
 
 void FastShifter::PulseHigh()
@@ -44,13 +44,21 @@ FastOut::FastOut(const uint8_t pin, bool startValue)
 
 bool FastOut::Setup(const uint8_t pin, bool startValue)
 {
-	Fast::Setup(pin);
-	Set(startValue);
+	if (Fast::Setup(pin))
+	{
+		Set(startValue);
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+	
 }
 
 bool FastOutCached::Setup(const uint8_t pin, bool startValue)
 {
-	FastOut::Setup(pin, startValue);
+	return FastOut::Setup(pin, startValue);
 }
 
 void FastOut::Toggle()
@@ -125,6 +133,8 @@ bool Fast::Setup(const uint8_t pin)
 	InPin = portInputRegister(digitalPinToPort(pin));
 
 	*Mode |= PinAddressMaskOn;//TODO, ensure input compatibility
+
+	return true;
 }
 
 inline bool Fast::Get()
