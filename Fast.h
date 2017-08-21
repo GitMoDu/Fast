@@ -60,7 +60,7 @@ public:
 	}
 
 	bool Setup(const uint8_t pin, bool startValue = false);
-	inline void Set(const bool value);
+	void Set(const bool value);
 	void Toggle();
 };
 
