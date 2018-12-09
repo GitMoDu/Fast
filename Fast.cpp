@@ -6,7 +6,7 @@
 
 #include "Fast.h"
 
-bool FastShifter::Setup(const uint8_t pin, bool startValue)
+bool FastShifter::Setup(const uint8_t pin, const bool startValue)
 {
 	return FastOut::Setup(pin, startValue);
 }
@@ -37,26 +37,26 @@ void FastShifter::PulseLow(const uint16_t pulseIntervalMicros)
 	Set(HIGH);
 }
 
-FastOut::FastOut(const uint8_t pin, bool startValue)
+FastOut::FastOut(const uint8_t pin, const bool startValue)
 {
 	Setup(pin, startValue);
 }
 
-bool FastOut::Setup(const uint8_t pin, bool startValue)
+bool FastOut::Setup(const uint8_t pin, const bool startValue)
 {
 	if (Fast::Setup(pin))
 	{
 		Set(startValue);
 		return true;
 	}
-	else 
+	else
 	{
 		return false;
 	}
-	
+
 }
 
-bool FastOutCached::Setup(const uint8_t pin, bool startValue)
+bool FastOutCached::Setup(const uint8_t pin, const bool startValue)
 {
 	return FastOut::Setup(pin, startValue);
 }
@@ -85,7 +85,7 @@ void FastOut::Set(const bool value)
 	}
 }
 
-FastOutCached::FastOutCached(const uint8_t pin, bool startValue)
+FastOutCached::FastOutCached(const uint8_t pin, const bool startValue)
 {
 	Setup(pin, startValue);
 }
@@ -116,7 +116,7 @@ inline void FastOutCached::Set(const bool value)
 }
 
 
-Fast::Fast(uint8_t pin)
+Fast::Fast(const uint8_t pin)
 {
 	if (pin != INVALID_PIN)
 	{

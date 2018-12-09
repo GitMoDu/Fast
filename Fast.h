@@ -25,23 +25,21 @@ protected:
 	bool Get();
 
 public:
-	Fast(uint8_t pin = INVALID_PIN);
+	Fast(const uint8_t pin = INVALID_PIN);
 	bool virtual Setup(const uint8_t pin);
-
-	
 };
 
 class FastOut : public Fast
 {
 public:
-	FastOut(const uint8_t pin = INVALID_PIN, bool startValue = false);
-	FastOut& operator = (boolean value) 
+	FastOut(const uint8_t pin = INVALID_PIN, const bool startValue = false);
+	FastOut& operator = (boolean value)
 	{
 		Set(value);
 		return *this;
 	}
 
-	bool Setup(const uint8_t pin, bool startValue);
+	bool Setup(const uint8_t pin, const bool startValue);
 	void Set(const bool value);
 	void Toggle();
 };
@@ -52,14 +50,14 @@ private:
 	bool LastValueCache = false;
 
 public:
-	FastOutCached(const uint8_t pin = INVALID_PIN, bool startValue = false);
-	FastOutCached& operator = (boolean value) 
+	FastOutCached(const uint8_t pin = INVALID_PIN, const bool startValue = false);
+	FastOutCached& operator = (boolean value)
 	{
 		Set(value);
 		return *this;
 	}
 
-	bool Setup(const uint8_t pin, bool startValue = false);
+	bool Setup(const uint8_t pin, const bool startValue = false);
 	void Set(const bool value);
 	void Toggle();
 };
@@ -67,7 +65,7 @@ public:
 class FastIn : public Fast
 {
 public:
-	FastIn(const uint8_t pin = INVALID_PIN, bool startValue = false);
+	FastIn(const uint8_t pin = INVALID_PIN, const bool startValue = false);
 
 	operator bool() {
 		return Get();
@@ -77,7 +75,7 @@ public:
 class FastShifter : public FastOut
 {
 public:
-	virtual bool Setup(const uint8_t pin, bool startValue = false);
+	virtual bool Setup(const uint8_t pin, const bool startValue = false);
 	void PulseLow();
 	void PulseHigh();
 	void PulseLow(const uint16_t pulseIntervalMicros);
