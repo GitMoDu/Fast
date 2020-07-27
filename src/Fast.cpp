@@ -102,7 +102,7 @@ void FastOutCached::Toggle()
 	}
 }
 
-inline void FastOutCached::Set(const bool value)
+void FastOutCached::Set(const bool value)
 {
 	LastValueCache = value;
 	if (LastValueCache)
@@ -137,7 +137,7 @@ bool Fast::Setup(const uint8_t pin)
 	return true;
 }
 
-inline bool Fast::Get()
+bool Fast::Get()
 {
 	return *InPin & PinAddressMaskOn;
 }
