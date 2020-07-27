@@ -31,7 +31,7 @@ FastOut ledPin;
 // the setup function runs once when you press reset or power the board
 void setup() {
 	// initialize digital pin LED_BUILTIN as an output with shifting capabilities.
-	ledPin.Setup(LED_BUILTIN);
+	ledPin.Setup(LED_BUILTIN, LOW);
 
 	// initialize digital pin shifter pin 5 as an output.
 	shifterPin.Setup(5);	
